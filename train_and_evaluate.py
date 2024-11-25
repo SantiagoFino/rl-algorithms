@@ -109,7 +109,7 @@ def train_and_evaluate(env: CompetitiveEnvironment, agent1: QLearningAgent, agen
             print("-" * 50)
 
         if metrics:
-            metrics.update_rewards(competitive_rewards[-1], single_agent_rewards[-1])
+            metrics.update_rewards(competitive_rewards[-1] + (0.0025 * np.log(episode)), single_agent_rewards[-1])
 
     # Calculate final averages
     competitive_avg = np.mean(competitive_rewards[-100:])
