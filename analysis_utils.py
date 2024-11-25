@@ -19,7 +19,6 @@ class PerformanceMetrics:
         self.resource_collection_times = []
         self.steps_per_episode = []
         self.collection_positions = []
-        self.resources_collection_history = []
 
     def reset_episode_metrics(self):
         """Reset metrics for a new episode."""
@@ -27,14 +26,13 @@ class PerformanceMetrics:
         self.current_episode_resources = []
         self.episode_start_time = time.time()
 
-    def update_episode_metrics(self, resources_collected, step_count, collection_positions):
+    def update_episode_metrics(self, step_count, collection_positions):
         """
         Update metrics for current episode.
         Parameters:
             step_count (int): Steps taken in episode
             collection_positions (list): Positions where resources were collected
         """
-        self.resources_collection_history.append(resources_collected)
         self.steps_per_episode.append(step_count)
         self.resource_collection_times.append(time.time() - self.episode_start_time)
         self.collection_positions.extend(collection_positions)
