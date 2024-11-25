@@ -70,11 +70,7 @@ def train_and_evaluate(env: CompetitiveEnvironment, agent1: QLearningAgent, agen
         competitive_rewards.append(sum(episode_rewards) / 2)
 
         if metrics:
-            metrics.update_episode_metrics(
-                resources_collected=resources_collected,
-                step_count=step_count,
-                collection_positions=collection_positions
-            )
+            metrics.update_episode_metrics(resources_collected, step_count, collection_positions)
 
         # Train single agent against random opponent
         state = env.reset()
