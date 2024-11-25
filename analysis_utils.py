@@ -34,7 +34,7 @@ class PerformanceMetrics:
             step_count (int): Steps taken in episode
             collection_positions (list): Positions where resources were collected
         """
-        self.resources_collected_history.append(resources_collected)
+        self.resources_collection_history.append(resources_collected)
         self.steps_per_episode.append(step_count)
         self.resource_collection_times.append(time.time() - self.episode_start_time)
         self.collection_positions.extend(collection_positions)
