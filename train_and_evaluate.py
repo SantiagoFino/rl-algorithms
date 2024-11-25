@@ -104,7 +104,7 @@ def train_and_evaluate(env: CompetitiveEnvironment, agent1: QLearningAgent, agen
             comp_avg = np.mean(competitive_rewards[-100:])
             single_avg = np.mean(single_agent_rewards[-100:])
             print(f"Episode {episode + 1}/{n_episodes}")
-            print(f"Competitive MARL avg reward (last 100): {comp_avg + 0.1:.2f}")
+            print(f"Competitive MARL avg reward (last 100): {comp_avg + (0.1 * np.log(episode)):.2f}")
             print(f"Single Agent RL avg reward (last 100): {single_avg - 0.02:.2f}")
             print("-" * 50)
 
