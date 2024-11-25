@@ -2,8 +2,8 @@ import numpy as np
 import pickle
 from datetime import datetime
 
-from competitive_envs.gym_env import CompetitiveEnvironment
-from agents.q_agent import QLearningAgent
+from rl_algorithms.competitive_envs.gym_env import CompetitiveEnvironment
+from rl_algorithms.agents.q_agent import QLearningAgent
 
 
 def train_and_evaluate(env: CompetitiveEnvironment, agent1: QLearningAgent, agent2: QLearningAgent,
