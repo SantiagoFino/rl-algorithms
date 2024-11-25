@@ -31,7 +31,7 @@ class CompetitiveEnvironment(gym.Env):
             low=0, high=self.grid_size - 1, shape=(2 + self.n_resources, 2), dtype=np.int32
         )
         self.agent1_pos, self.agent2_pos = np.array([0, 0]), np.array([0, 0])  # default values for the agents positions
-        self.resources: list[np.array] = [np.array([0, 0]) for _ in range(4)]  # default values for the res positions
+        self.resources: list[np.array] = [np.array([0, 0]) for _ in range(self.n_resources)]  # default values for the res positions
 
     def _get_obs(self) -> np.ndarray:
         """
@@ -106,6 +106,12 @@ class CompetitiveEnvironment(gym.Env):
                 elif np.array_equal(self.agent2_pos, collected_resource):
                     rewards[1] += 1
 
+        # remove the resources
+        for i, resource in enumerate(self.resources):
+            if resource is not None:
+                if np.array_equal(self.agent1_pos, resource) or np.array_equal(self.agent2_pos, resource):
+                    self.resources[i] = None
+
         return rewards
 
     def reset(self) -> np.ndarray:
@@ -163,7 +169,7 @@ class CompetitiveEnvironment(gym.Env):
 
         # checks the resource collection
         rewards = self._collect_rewards()
-
+        
         # checks if the game is over if the game surpasses the max amount of steps or all the resources are collected
         done = (self.step_count >= self.max_steps or all(resource is None for resource in self.resources))
 
