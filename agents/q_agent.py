@@ -48,18 +48,19 @@ class QLearningAgent:
     def learn(self, state, action, reward, next_state):
         """
         Update Q-values based on the observed transition.
-
-        Parameters:
+    
+        Args:
             state (numpy.ndarray): Current state
             action (int): Action taken
             reward (float): Reward received
             next_state (numpy.ndarray): Resulting state
         """
-        state = tuple(map(tuple, state))
-        next_state = tuple(map(tuple, next_state))
-
-        old_value = self.q_table[state][action]
-        next_max = np.max(self.q_table[next_state])
-
+        # Convert numpy arrays to tuples for dictionary key
+        state_tuple = tuple(map(tuple, state))
+        next_state_tuple = tuple(map(tuple, next_state))
+        
+        old_value = self.q_table[state_tuple][action]
+        next_max = np.max(self.q_table[next_state_tuple])
+        
         new_value = (1 - self.lr) * old_value + self.lr * (reward + self.gamma * next_max)
-        self.q_table[state][action] = new_value
+        self.q_table[state_tuple][action] = new_value
