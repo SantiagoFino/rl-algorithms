@@ -2,8 +2,8 @@ import numpy as np
 import pickle
 from datetime import datetime
 
-from competitive_envs.gym_env import CompetitiveEnvironment
-from agents.q_agent import QLearningAgent
+from rl-algorithms.competitive_envs.gym_env import CompetitiveEnvironment
+from rl-algorithms.agents.q_agent import QLearningAgent
 from analysis_utils import PerformanceMetrics, visualize_episode
 
 
