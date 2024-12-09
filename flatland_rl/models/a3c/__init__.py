@@ -4,8 +4,8 @@ from torch.distributions.categorical import Categorical
 import torch.multiprocessing as mp
 import numpy as np
 
-from models.a3c.networks import Actor, Critic
-from utils import preprocess_state, create_flatland_env
+from flatland_rl.models.a3c.networks import Actor, Critic
+from flatland_rl.utils import preprocess_state, create_flatland_env
 
 from flatland.core.grid.grid4 import Grid4Transitions
 

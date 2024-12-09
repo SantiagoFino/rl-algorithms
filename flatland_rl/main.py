@@ -2,8 +2,9 @@ import torch.multiprocessing as mp
 import argparse
 from pathlib import Path
 
-from models.a3c import A3CMaster
-from utils import set_random_seeds, plot_training_results, get_device
+from flatland_rl.models.a3c import A3CMaster
+from flatland_rl.models.sac import SACMaster
+from flatland_rl.utils import set_random_seeds, plot_training_results, get_device
 
 
 ENV_CONFIG = {
@@ -12,6 +13,48 @@ ENV_CONFIG = {
     'n_agents': 1,
     'max_num_cities': 2
 }
+
+
+def train_sac(args, env_config=None):
+    """
+    Train a SAC agent in the Flatland environment.
+
+    Parameters:
+        args: Parsed command line arguments containing training parameters
+        env_config: Parsed environment configuration
+    """
+    if env_config is None:
+        env_config = ENV_CONFIG
+
+    # Initialize SAC agent
+    master = SACMaster(env_config)
+
+    # Training loop
+    print("Starting SAC training...")
+    print(f"Using device: {get_device()}")
+
+    try:
+        # Train the agent
+        master.train(num_episodes=args.num_episodes)
+
+        # Save final model
+        if args.save_model:
+            save_path = Path(args.save_dir) / 'sac_final.pth'
+            master.save_model(save_path)
+            print(f"Model saved to {save_path}")
+
+        # Plot results
+        plot_training_results(master.rewards_history, master.steps_history)
+
+        # Evaluate final performance
+        eval_rewards = master.evaluate(num_episodes=100)
+        print(f"\nFinal evaluation over 100 episodes:")
+        print(f"Average reward: {eval_rewards:.2f}")
+
+    except KeyboardInterrupt:
+        print("\nTraining interrupted by user")
+
+    return master
 
 
 def train_a3c(args, env_config=None):
@@ -84,7 +127,7 @@ def main():
     if __name__ == '__main__':
         mp.set_start_method('spawn', force=True)
         print(f"Starting training with {args.num_workers} workers...")
-        master = train_a3c(args)
+        master = train_sac(args)
         print("\nTraining completed!")
 
         if args.save_model:
