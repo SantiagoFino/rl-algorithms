@@ -4,10 +4,10 @@ from torch.distributions.categorical import Categorical
 import torch.multiprocessing as mp
 import numpy as np
 
+from flatland.core.grid.grid4 import Grid4Transitions
+
 from rl_algorithms.flatland_rl.models.a3c.networks import Actor, Critic
 from rl_algorithms.flatland_rl.utils import preprocess_state, create_flatland_env
-
-from rl_algorithms.flatland.core.grid.grid4 import Grid4Transitions
 
 
 class A3CWorker(mp.Process):
