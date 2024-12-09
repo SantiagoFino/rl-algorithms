@@ -2,9 +2,9 @@ import torch.multiprocessing as mp
 import argparse
 from pathlib import Path
 
-from flatland_rl.models.a3c import A3CMaster
-from flatland_rl.models.sac import SACMaster
-from flatland_rl.utils import set_random_seeds, plot_training_results, get_device
+from rl_algorithms.flatland_rl.models.a3c import A3CMaster
+from rl_algorithms.flatland_rl.models.sac import SACMaster
+from rl_algorithms.flatland_rl.utils import set_random_seeds, plot_training_results, get_device
 
 
 ENV_CONFIG = {

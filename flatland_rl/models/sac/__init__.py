@@ -3,8 +3,8 @@ import torch.nn.functional as F
 import numpy as np
 from torch.optim import Adam
 
-from flatland_rl.models.sac.networks import SACActor, SACCritic, QNetwork
-from flatland_rl.utils import preprocess_state, create_flatland_env
+from rl_algorithms.flatland_rl.models.sac.networks import SACActor, SACCritic, QNetwork
+from rl_algorithms.flatland_rl.utils import preprocess_state, create_flatland_env
 
 
 class ReplayBuffer:
